@@ -1,6 +1,7 @@
 package com.tct.eduservice.controller;
 
 
+import com.tct.commonutils.ResponseResult;
 import com.tct.eduservice.entity.EduTeacher;
 import com.tct.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
@@ -36,8 +37,9 @@ public class EduTeacherController {
 
     @GetMapping(GET_ALL)
     @ApiOperation(value = "所有讲师列表")
-    public List<EduTeacher> getAll(){
-        return eduTeacherService.list(null);
+    public ResponseResult getAll(){
+        List<EduTeacher> list = eduTeacherService.list(null);
+        return ResponseResult.ok().data("items",list);
     }
 }
 
