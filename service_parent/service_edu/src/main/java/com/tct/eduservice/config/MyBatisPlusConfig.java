@@ -1,5 +1,6 @@
 package com.tct.eduservice.config;
 
+import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
@@ -23,5 +24,13 @@ public class MyBatisPlusConfig {
         performanceInterceptor.setMaxTime(1000);//ms，超过此处设置的ms则sql不执行
         performanceInterceptor.setFormat(true);
         return performanceInterceptor;
+    }
+
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
     }
 }

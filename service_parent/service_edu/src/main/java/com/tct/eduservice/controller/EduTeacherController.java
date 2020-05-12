@@ -1,17 +1,15 @@
 package com.tct.eduservice.controller;
 
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.tct.commonutils.ResponseResult;
 import com.tct.eduservice.entity.EduTeacher;
 import com.tct.eduservice.service.EduTeacherService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +28,7 @@ import java.util.List;
 public class EduTeacherController {
 
     public static final String GET_ALL = "/getAll";
+    public static final String PAGE_LIMIT = "/{page}/{limit}";
 
     @Autowired
     public EduTeacherService eduTeacherService;
@@ -40,6 +39,19 @@ public class EduTeacherController {
     public ResponseResult getAll(){
         List<EduTeacher> list = eduTeacherService.list(null);
         return ResponseResult.ok().data("items",list);
+    }
+
+    @ApiOperation("分页查询讲师列表")
+    @GetMapping(PAGE_LIMIT)
+    public ResponseResult getTeacherByPage(@ApiParam(name = "page", value = "当前页码", required = true) @PathVariable Long page,
+                                           @ApiParam(name = "limit", value = "每页记录数", required = true) @PathVariable Long limit){
+
+        Page<EduTeacher> pageParam = new Page<>(page,limit);
+        eduTeacherService.page(pageParam,null);
+        List<EduTeacher> list = pageParam.getRecords();
+        long total = pageParam.getTotal();
+        //long total = eduTeacherService.list(null).size();
+        return ResponseResult.ok().data("total",total).data("rows",list);
     }
 }
 
