@@ -2,8 +2,7 @@ package com.tct.eduservice.service;
 
 import com.tct.eduservice.entity.EduSubject;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tct.eduservice.entity.tree.SubjectChildren;
-import com.tct.eduservice.entity.tree.SubjectParent;
+import com.tct.eduservice.entity.tree.subject.SubjectParent;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

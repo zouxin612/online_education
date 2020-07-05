@@ -2,7 +2,7 @@ package com.tct.eduservice.controller;
 
 
 import com.tct.commonutils.ResponseResult;
-import com.tct.eduservice.entity.tree.SubjectParent;
+import com.tct.eduservice.entity.tree.subject.SubjectParent;
 import com.tct.eduservice.service.EduSubjectService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

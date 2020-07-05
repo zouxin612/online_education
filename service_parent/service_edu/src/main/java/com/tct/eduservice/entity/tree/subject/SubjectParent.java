@@ -1,5 +1,6 @@
-package com.tct.eduservice.entity.tree;
+package com.tct.eduservice.entity.tree.subject;
 
+import com.tct.eduservice.entity.tree.subject.SubjectChildren;
 import lombok.Data;
 
 import java.util.List;
