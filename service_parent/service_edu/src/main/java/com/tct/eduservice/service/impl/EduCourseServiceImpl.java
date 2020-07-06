@@ -3,6 +3,7 @@ package com.tct.eduservice.service.impl;
 import com.tct.eduservice.entity.EduCourse;
 import com.tct.eduservice.entity.EduCourseDescription;
 import com.tct.eduservice.entity.vo.EduCourseInfoVo;
+import com.tct.eduservice.entity.vo.EduCoursePublishVo;
 import com.tct.eduservice.mapper.EduCourseDescriptionMapper;
 import com.tct.eduservice.mapper.EduCourseMapper;
 import com.tct.eduservice.service.EduCourseService;
@@ -102,6 +103,30 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             }else {
                 return false;
             }
+        }
+    }
+
+    @Override
+    public EduCoursePublishVo getCoursePublishVoById(String id) {
+        EduCoursePublishVo publishVo = courseMapper.selectCoursePublishVoById(id);
+        if(null == publishVo){
+            return null;
+        }else {
+            return publishVo;
+        }
+    }
+
+    @Override
+    public boolean publishCourseById(String id) {
+        // 发布课程信息只需将edu_course 表中的status 置为normal
+        EduCourse course = new EduCourse();
+        course.setId(id);
+        course.setStatus("Normal");
+        int update = courseMapper.updateById(course);
+        if(update > 0){
+            return true;
+        }else {
+            return false;
         }
     }
 }

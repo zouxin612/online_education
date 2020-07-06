@@ -2,6 +2,7 @@ package com.tct.eduservice.mapper;
 
 import com.tct.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tct.eduservice.entity.vo.EduCoursePublishVo;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,4 +16,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EduCourseMapper extends BaseMapper<EduCourse> {
 
+    EduCoursePublishVo selectCoursePublishVoById(String id);
 }

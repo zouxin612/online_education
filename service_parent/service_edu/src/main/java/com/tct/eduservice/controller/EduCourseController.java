@@ -3,9 +3,11 @@ package com.tct.eduservice.controller;
 
 import com.tct.commonutils.ResponseResult;
 import com.tct.eduservice.entity.vo.EduCourseInfoVo;
+import com.tct.eduservice.entity.vo.EduCoursePublishVo;
 import com.tct.eduservice.service.EduChapterService;
 import com.tct.eduservice.service.EduCourseService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class EduCourseController {
     public static final String GET_COURSE_BY_ID = "/getCourseInfoById/{id}";
     public static final String UPDATE_COURSE_INFO = "/updateCourseInfo";
     public static final String DELETE_COURSE_INFO = "/deleteCourseInfo";
+    public static final String GET_PUBLISH_INFO = "/getCoursePublishInfo/{id}";
+    public static final String PUBLISH_COURSE_INFO = "/publishCourseInfo/{id}";
 
     @Autowired
     public EduCourseService courseService;
@@ -63,6 +67,30 @@ public class EduCourseController {
     public ResponseResult updateCourseInfo(@RequestBody EduCourseInfoVo courseInfoVo){
         boolean update = courseService.updateCourseInfo(courseInfoVo);
         if(update){
+            return ResponseResult.ok();
+        }else {
+            return ResponseResult.error();
+        }
+    }
+
+    @ApiOperation("查询要发布的信息")
+    @GetMapping(GET_PUBLISH_INFO)
+    public ResponseResult getCoursePublishInfoById(@ApiParam(name = "id",value = "课程id",required = true)
+                                                   @PathVariable String id){
+        EduCoursePublishVo publishVo = courseService.getCoursePublishVoById(id);
+        if(null != publishVo){
+            return ResponseResult.ok().data("item",publishVo);
+        }else {
+            return ResponseResult.error();
+        }
+    }
+
+    @ApiOperation("根据课程id发布课程")
+    @PutMapping(PUBLISH_COURSE_INFO)
+    public ResponseResult publishCourseInfo( @ApiParam(name = "id", value = "课程ID", required = true)
+                                                 @PathVariable String id){
+        boolean b = courseService.publishCourseById(id);
+        if(b){
             return ResponseResult.ok();
         }else {
             return ResponseResult.error();

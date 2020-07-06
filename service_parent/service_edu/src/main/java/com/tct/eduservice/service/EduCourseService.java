@@ -3,6 +3,7 @@ package com.tct.eduservice.service;
 import com.tct.eduservice.entity.EduCourse;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.tct.eduservice.entity.vo.EduCourseInfoVo;
+import com.tct.eduservice.entity.vo.EduCoursePublishVo;
 
 /**
  * <p>
@@ -22,4 +23,10 @@ public interface EduCourseService extends IService<EduCourse> {
 
     // 修改课程信息
     boolean updateCourseInfo(EduCourseInfoVo courseInfoVo);
+
+    // 查询发布信息
+    EduCoursePublishVo getCoursePublishVoById(String id);
+
+    // 根据课程id发布信息
+    boolean publishCourseById(String id);
 }
